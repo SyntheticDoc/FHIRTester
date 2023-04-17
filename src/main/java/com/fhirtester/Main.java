@@ -10,8 +10,26 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+        writeEmptyJSONExample();
         //writeJSONExample();
-        fhirTest("example_test1");
+        //fhirTest("example_test1");
+    }
+
+    public static void writeEmptyJSONExample() {
+        ArrayList<String> fileContents1 = CSVConverter.getFileContent(1);
+        StringBuilder dataBuilder = new StringBuilder();
+
+        for(String s : fileContents1) {
+            if(!s.isBlank()) {
+                dataBuilder.append(0).append(" ");
+                dataBuilder.append(0).append(" ");
+                dataBuilder.append(0).append(" ");
+            }
+        }
+
+        String data = dataBuilder.toString();
+
+        JSONBuilder.buildJSON(data, "example_test_empty1");
     }
 
     public static void writeJSONExample() {
