@@ -4,13 +4,87 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import org.hl7.fhir.r4.model.Observation;
 import org.hl7.fhir.r4.model.Patient;
-import org.hl7.fhir.r4.model.SampledData;
 
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
+        //writeJSONExample();
+        fhirTest("example_test1");
+    }
+
+    public static void writeJSONExample() {
+        ArrayList<String> fileContents1 = CSVConverter.getFileContent(1);
+        StringBuilder dataBuilder = new StringBuilder();
+
+        ArrayList<String> fileContents2 = CSVConverter.getFileContent(2);
+        ArrayList<String> fileContents3 = CSVConverter.getFileContent(3);
+
+        for(String s : fileContents1) {
+            if(!s.isBlank()) {
+                dataBuilder.append(((int) (Double.parseDouble(s) * 300)) + 1900).append(" ");
+            }
+        }
+
+        for(String s : fileContents2) {
+            if(!s.isBlank()) {
+                dataBuilder.append(((int) (Double.parseDouble(s) * 300)) + 1900).append(" ");
+            }
+        }
+
+        for(String s : fileContents3) {
+            if(!s.isBlank()) {
+                dataBuilder.append(((int) (Double.parseDouble(s) * 300)) + 1900).append(" ");
+            }
+        }
+
+        String data = dataBuilder.toString();
+
+        JSONBuilder.buildJSON(data, "example_test1");
+    }
+
+    public static void csvTest() {
+        // CSVConverter.convertFiles();
+        ArrayList<String> fileContents1 = CSVConverter.getFileContent(1);
+        StringBuilder dataBuilder = new StringBuilder();
+
+        ArrayList<String> fileContents2 = CSVConverter.getFileContent(2);
+        ArrayList<String> fileContents3 = CSVConverter.getFileContent(3);
+
+        for(String s : fileContents1) {
+            if(!s.isBlank()) {
+                dataBuilder.append(((int) (Double.parseDouble(s) * 300)) + 1900).append(" ");
+            }
+        }
+
+        for(String s : fileContents2) {
+            if(!s.isBlank()) {
+                dataBuilder.append(((int) (Double.parseDouble(s) * 300)) + 1900).append(" ");
+            }
+        }
+
+        for(String s : fileContents3) {
+            if(!s.isBlank()) {
+                dataBuilder.append(((int) (Double.parseDouble(s) * 300)) + 1900).append(" ");
+            }
+        }
+
+        String data = dataBuilder.toString();
+
+        String[] comps = new String[6];
+        comps[0] = "All files";
+        comps[1] = data;
+        comps[2] = comps[0];
+        comps[3] = data;
+        comps[4] = comps[0];
+        comps[5] = data;
+
+        GraphicsModule g = new GraphicsModule();
+        g.drawECG(comps);
+    }
+
+    public static void fhirTest(String filename) {
         System.out.println("Starting program");
 
         // Build FHIR-context (only once, because this step is very resource-demanding!)
@@ -18,7 +92,7 @@ public class Main {
 
         System.out.println("Context successfully started!\n" + ctx + "\n");
 
-        String jsonContents = JSONReader.getFileContent();
+        String jsonContents = JSONReader.getFileContent(filename);
 
         IParser parser = ctx.newJsonParser();
 
